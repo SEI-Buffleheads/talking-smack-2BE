@@ -1,0 +1,2 @@
+web: gunicorn testTwitter.wsgi --log-file -
+
