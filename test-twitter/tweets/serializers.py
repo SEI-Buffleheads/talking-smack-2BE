@@ -10,10 +10,10 @@ class PostSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
   class Meta:
     model=Comment
-    field='__all__'
+    fields='__all__'
 
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
     model=User
-    field='__all__'
+    fields='__all__'
 
