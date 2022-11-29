@@ -31,7 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = ["talking-smack-2be-production.up.railway.app"]
 
 
 # Application definition
@@ -64,6 +64,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:9000",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "talking-smack-2be-production.up.railway.app",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
