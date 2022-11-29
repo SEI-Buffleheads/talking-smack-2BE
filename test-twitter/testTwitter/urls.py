@@ -16,17 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from tweets.views import UserProfile_ViewSet, Post_ViewSet, Comment_ViewSet
+from tweets.views import UserProfile_ViewSet, Post_ViewSet
 
 router = routers.DefaultRouter()
 
-router.register(r'profile', UserProfile_ViewSet, basename='profile')
-router.register(r'post', Post_ViewSet, basename='post')
-# router.register(r'comment', Comment_ViewSet, basename='comment')
+router.register(r'profiles', UserProfile_ViewSet, basename='profiles')
+router.register(r'posts', Post_ViewSet, basename='posts')
+router.register(r'comments', Post_ViewSet, basename='comments')
+
 
 
 urlpatterns = [
     path('', include(router.urls)),
     path('', include('tweets.urls')),
+    path('', include('user_auth.urls')),
+    
     path('admin/', admin.site.urls),
 ]
