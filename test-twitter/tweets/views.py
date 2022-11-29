@@ -62,6 +62,19 @@ class Comment_ViewSet(APIView):
   permission_classes = [
     permissions.AllowAny
   ]
+  def get(self, request,id):
+    try:
+      post_results = Post.objects.get(id=id)
+      post = Post_Serializer(post_results)
+      comments_results = Comment.objects.filter(post=id)
+      print(comments_results)
+      print(post.data)
+      
+      comments = Comment_Serializer(comments_results, many=True)
+      print(comments.data)
+      return Response({"post":post.data,"comments":comments.data})
+    except:
+      return Response({"error": "something went wrong"})
   def post(self,request,id):
     try:
       user = self.request.user

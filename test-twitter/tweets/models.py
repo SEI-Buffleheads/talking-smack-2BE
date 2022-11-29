@@ -8,7 +8,9 @@ class User_profile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50, default=None)
-    avatar = models.CharField(max_length=500)
+    email = models.CharField(max_length=50, default=None)
+    avatar = models.CharField(
+        max_length=50, default="https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png")
     creation_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -33,4 +35,4 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Comment by {self.user}'
+        return f'Comment by {self.content}'
