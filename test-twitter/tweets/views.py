@@ -66,6 +66,21 @@ class OnePost_ViewSet(APIView):
         except:
             return Response({"error": "something went wrong"})
 
+    def put(self, request, id):
+        try:
+            user = self.request.user
+            isAuthenticated = user.is_authenticated
+            if isAuthenticated:
+
+                content = request.data['content']
+                userProfile = User_profile.objects.get(user=user)
+                Post.objects.update(user=userProfile, content=content)
+                return Response({'message': "Post Successfully updated!"})
+            else:
+                return Response({'error': "not authenticated make sure you include a token"})
+        except:
+            return Response({'error': "error; you are most likely messed up by passing an invaild body"})
+
 
 class Comment_ViewSet(APIView):
     permission_classes = [
