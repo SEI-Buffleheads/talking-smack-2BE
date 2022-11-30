@@ -124,21 +124,6 @@ class Comment_ViewSet(APIView):
         except:
             return Response({'error': "error; you are most likely messed up by passing an invalid body"})
 
-    # def put(self, request, id):
-    #     try:
-    #         user = self.request.user
-    #         isAuthenticated = user.is_authenticated
-    #         if isAuthenticated:
-
-    #             content = request.data['content']
-    #             userProfile = User_profile.objects.get(user=user)
-    #             Post.objects.update(user=userProfile, content=content)
-    #             return Response({'message': "Comment Successfully updated!"})
-    #         else:
-    #             return Response({'error': "not authenticated make sure you include a token"})
-    #     except:
-    #         return Response({'error': "error; you are most likely messed up by passing an invalid body"})
-
 
 class Comment_ViewSet2(APIView):
     permission_classes = [
@@ -147,10 +132,12 @@ class Comment_ViewSet2(APIView):
 
     def get(self, request, id, cmt_id):
         try:
-            post_results = Post.objects.get(id=id) # find the post by its id
-            post = Post_Serializer(post_results) # turn post to json 
-            comments_results = Comment.objects.filter(post=id) # get all comments from the post 
-            single_comments_results = comments_results.filter(post=id) # filter comments for 
+            post_results = Post.objects.get(id=id)  # find the post by its id
+            post = Post_Serializer(post_results)  # turn post to json
+            comments_results = Comment.objects.filter(
+                post=id)  # get all comments from the post
+            single_comments_results = comments_results.filter(
+                post=id)  # filter comments for
             print(comments_results)
             print(post.data)
 
