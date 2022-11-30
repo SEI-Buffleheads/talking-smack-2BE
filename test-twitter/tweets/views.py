@@ -138,3 +138,24 @@ class Comment_ViewSet(APIView):
     #             return Response({'error': "not authenticated make sure you include a token"})
     #     except:
     #         return Response({'error': "error; you are most likely messed up by passing an invalid body"})
+
+
+class Comment_ViewSet2(APIView):
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
+
+    def get(self, request, id, cmt_id):
+        try:
+            post_results = Post.objects.get(id=id) # find the post by its id
+            post = Post_Serializer(post_results) # turn post to json 
+            comments_results = Comment.objects.filter(post=id) # get all comments from the post 
+            single_comments_results = comments_results.filter(post=id) # filter comments for 
+            print(comments_results)
+            print(post.data)
+
+            comments = Comment_Serializer(comments_results, many=True)
+            print(comments.data)
+            return Response({"comment": comments.data})
+        except:
+            return Response({"error": "something went wrong"})
