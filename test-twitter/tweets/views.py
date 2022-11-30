@@ -2,8 +2,10 @@ from rest_framework import viewsets
 from .models import User_profile, Comment, Post
 from rest_framework.views import APIView
 from .serializers import User_profileSerializer, Comment_Serializer, Post_Serializer
-from rest_framework import permissions
+from rest_framework import permissions, status
 from rest_framework.response import Response
+from django.shortcuts import render, get_object_or_404
+from user_auth.views import Verify
 
 # Create your views here.
 
@@ -33,6 +35,7 @@ class AllPost_ViewSet(APIView):
             user = self.request.user
             isAuthenticated = user.is_authenticated
             if isAuthenticated:
+              
                 content = request.data['content']
                 userProfile = User_profile.objects.get(user=user)
                 Post.objects.create(user=userProfile, content=content)
@@ -65,6 +68,30 @@ class OnePost_ViewSet(APIView):
             return Response({"post": post.data, "comments": comments.data})
         except:
             return Response({"error": "something went wrong"})
+
+    def put(self, request, id):
+        try:
+            user = self.request.user
+            isAuthenticated = user.is_authenticated
+            if isAuthenticated:
+
+                content = request.data['content']
+                userProfile = User_profile.objects.get(user=user)
+                Post.objects.update(user=userProfile, content=content)
+                return Response({'message': "Post Successfully Created!"})
+            else:
+                return Response({'error': "not authenticated make sure you include a token"})
+        except:
+            return Response({'error': "error; you are most likely messed up by passing an invaild body"})
+
+        # post = get_object_or_404(Post, pk=id)
+        # serializer = self.serializer_class(instance=post, data=request.data)
+
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+        # return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Comment_ViewSet(APIView):
