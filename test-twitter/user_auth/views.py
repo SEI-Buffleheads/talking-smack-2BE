@@ -117,7 +117,7 @@ class Verify(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    def post(self, request, format=None):
+    def get(self, request, format=None):
         objs = AuthToken.objects.filter(
             token_key=request.COOKIES["sa_token"][:CONSTANTS.TOKEN_KEY_LENGTH])
         if len(objs) == 0:
