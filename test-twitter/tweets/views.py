@@ -26,7 +26,7 @@ class Post_ViewSet(viewsets.ModelViewSet):
 
 class AllPost_ViewSet(APIView):
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticatedOrReadOnly
     ]
 
     def post(self, request):
@@ -54,7 +54,7 @@ class AllPost_ViewSet(APIView):
 
 class OnePost_ViewSet(APIView):
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticatedOrReadOnly
     ]
 
     def get(self, request, id):
