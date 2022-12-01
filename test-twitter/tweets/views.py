@@ -130,19 +130,56 @@ class Comment_ViewSet2(APIView):
         permissions.IsAuthenticatedOrReadOnly
     ]
 
+    def put(self, request, id, cmt_id):
+        try:
+            user = self.request.user
+            isAuthenticated = user.is_authenticated
+            if isAuthenticated:
+
+                content = request.data['content']
+
+                userProfile = User_profile.objects.get(user=user)
+                post = Post.objects.get(id=id)
+
+                Comment.objects.filter(
+                    id=cmt_id).update(
+                    user=userProfile, content=content, post=post)
+
+                return Response({
+                    'message': 'updated',
+                    'content': content,
+                    'post': post.id
+                })
+            else:
+                return Response({'error': "not authenticated make sure you include a token"})
+        except:
+            return Response({'error': "error; you are most likely messed up by passing an invalid body"})
+
     def get(self, request, id, cmt_id):
         try:
-            post_results = Post.objects.get(id=id)  # find the post by its id
-            post = Post_Serializer(post_results)  # turn post to json
             comments_results = Comment.objects.filter(
-                post=id)  # get all comments from the post
-            single_comments_results = comments_results.filter(
-                post=id)  # filter comments for
+                id=cmt_id)
             print(comments_results)
-            print(post.data)
-
             comments = Comment_Serializer(comments_results, many=True)
-            print(comments.data)
-            return Response({"comment": comments.data})
+
+            return Response({'comment': comments.data})
+
         except:
-            return Response({"error": "something went wrong"})
+            return Response({'error': "error; you are most likely messed up by passing an invalid body"})
+
+    def delete(self, request, id, cmt_id):
+        try:
+            user = self.request.user
+            isAuthenticated = user.is_authenticated
+            if isAuthenticated:
+
+                Comment.objects.filter(
+                    id=cmt_id).delete()
+                return Response({
+                    'message': 'comment deleted',
+
+                })
+            else:
+                return Response({'error': "not authenticated make sure you include a token"})
+        except:
+            return Response({'error': "error; you are most likely messed up by passing an invalid body"})
