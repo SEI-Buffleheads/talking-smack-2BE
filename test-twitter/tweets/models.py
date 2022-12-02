@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 class User_profile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, null=True, blank=True)
-    name = models.CharField(max_length=50, default=None)
-    email = models.CharField(max_length=50, default=None)
+    name = models.CharField(max_length=50, default=None, unique=True)
+    email = models.CharField(max_length=50, default=None, unique=True)
     avatar = models.CharField(
         max_length=50, default="https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png")
     creation_date = models.DateTimeField(auto_now=True)
