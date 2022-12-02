@@ -58,4 +58,8 @@ whitenoise==6.2.0
 # Problems Faced During development...
 
 - understanding all the type of relationships that models can have with other models.
-- Implementing user
+- user authorization
+- Implementing user, connnecting Django built in user to custom user. Due to a custom user, resources to find solutions were limited.
+- timeline
+- getting started locally.
+- merge conflicts
