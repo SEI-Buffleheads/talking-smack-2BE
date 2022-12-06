@@ -55,6 +55,19 @@ virtualenvwrapper==4.8.4
 whitenoise==6.2.0
 ```
 
+# Team Members
+
+Lin Lin
+Martin G.
+Danny P.
+Caprice G.
+Chelsea D.
+Malik W.
+Ethan L.
+Luis S.
+Alexis H.
+Akeel K.
+
 # Problems Faced During development...
 
 - understanding all the type of relationships that models can have with other models.
